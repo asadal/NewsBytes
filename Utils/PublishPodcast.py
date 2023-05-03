@@ -72,10 +72,14 @@ class PublishPodcast:
         """
         Get media meta data for current episode
         """
-        for blob in self.bucket.list_blobs(prefix = 'podcasts/'):
-            if blob.name.split('/')[1] == self.episode_name:
-                return (blob.public_url, blob.size)
-        return None
+        return next(
+            (
+                (blob.public_url, blob.size)
+                for blob in self.bucket.list_blobs(prefix='podcasts/')
+                if blob.name.split('/')[1] == self.episode_name
+            ),
+            None,
+        )
 
     def add_new_episode(self):
         """
