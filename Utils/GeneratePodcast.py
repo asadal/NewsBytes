@@ -122,7 +122,7 @@ class GeneratePodcast:
         elif len(str(self.podcast_number)) == 2:
             pod_num = f'0{self.podcast_number}'
 
-        self.episode_name = f"NewsByte: {pod_num} | Global Date: {datetime.today().strftime('%d-%m-%Y')} | Global Week: {datetime.today().isocalendar()[1]}"
+        self.episode_name = f"NewsByte: {pod_num} | Global Date: {datetime.now().strftime('%d-%m-%Y')} | Global Week: {datetime.now().isocalendar()[1]}"
 
         self.bucket.blob(f"podcasts/{self.episode_name}.mp3").upload_from_string(podcast_mp3.getvalue(), content_type = "audio/mpeg")
         self.bucket.blob(f"podcasts/{self.episode_name}.mp3").make_public()
@@ -133,7 +133,7 @@ class GeneratePodcast:
         """
         Getter for self.episode_name with type appended.
         """
-        return self.episode_name + '.mp3'
+        return f'{self.episode_name}.mp3'
 
     def generate_podcast(self):
         """

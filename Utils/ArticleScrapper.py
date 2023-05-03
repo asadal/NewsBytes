@@ -29,7 +29,9 @@ class ArticleScrapper:
         self.article_links = []
         self.all_news_content = []
         self.base_url = base_url
-        self.request = requests.get(self.base_url + '/interest/international', timeout=10)
+        self.request = requests.get(
+            f'{self.base_url}/interest/international', timeout=10
+        )
         self.soup = BeautifulSoup(self.request.content, 'html.parser')
         self.extractor = extractors.ArticleExtractor()
 
@@ -115,7 +117,7 @@ class ArticleScrapper:
         """
         try:
             lang = detect(text)
-            return bool(lang == 'en')
+            return lang == 'en'
         except:
             return False
 
